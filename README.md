@@ -560,36 +560,6 @@ The front end uses:
 | Delete | Confirms and performs deletion |
 | Details | Displays the professional resume layout |
 
-### Styling
-
-The main stylesheet is located at:
-
-```text
-wwwroot/css/site.css
-```
-
-The interface includes a dedicated professional layout for the resume details page and print-oriented styling.
-
-### Suggested Screenshots
-
-For a portfolio-quality GitHub repository, screenshots can be added later under:
-
-```text
-screenshots/
-├── home.png
-├── resume-list.png
-├── create-resume.png
-├── edit-resume.png
-├── delete-confirmation.png
-└── resume-details.png
-```
-
-Then add them to the README using Markdown:
-
-```markdown
-![Home](screenshots/home.png)
-```
-
 ---
 
 ## Requirements
