@@ -1,0 +1,45 @@
+@model List<Curriculo>
+@{
+    ViewData["Title"] = "Currículos cadastrados";
+}
+
+<div class="page-head">
+    <h1>Currículos cadastrados</h1>
+    <a class="btn btn-primary" asp-action="Create">Novo currículo</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="vazio">
+        <p>Nenhum currículo cadastrado ainda.</p>
+        <a class="btn btn-primary" asp-action="Create">Cadastrar o primeiro currículo</a>
+    </div>
+}
+else
+{
+    <div class="tabela-wrap">
+        <table class="tabela">
+            <thead>
+                <tr>
+                    <th scope="col">CPF</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col" class="col-acoes">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model)
+                {
+                    <tr>
+                        <td class="nowrap">@c.CpfFormatado</td>
+                        <td>@c.Nome</td>
+                        <td class="col-acoes">
+                            <a class="btn btn-sm btn-ghost" asp-action="Details" asp-route-id="@c.Id">Exibir</a>
+                            <a class="btn btn-sm btn-ghost" asp-action="Edit" asp-route-id="@c.Id">Alterar</a>
+                            <a class="btn btn-sm btn-danger-ghost" asp-action="Delete" asp-route-id="@c.Id">Excluir</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

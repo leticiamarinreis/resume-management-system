@@ -1,0 +1,114 @@
+@using System.Globalization
+@model Curriculo
+@{
+    ViewData["Title"] = Model.Nome;
+
+    var formacoes = Model.Formacoes.Where(f => f.Preenchida).ToList();
+    var experiencias = Model.Experiencias.Where(e => e.Preenchida).ToList();
+    var idiomas = Model.Idiomas.Where(i => i.Preenchida).ToList();
+    var salario = Model.PretensaoSalarial?.ToString("C", CultureInfo.GetCultureInfo("pt-BR"));
+}
+
+<div class="barra-acoes no-print">
+    <a class="btn btn-ghost" asp-action="Index">Voltar à lista</a>
+    <a class="btn btn-ghost" asp-action="Edit" asp-route-id="@Model.Id">Alterar</a>
+    <button type="button" class="btn btn-primary" onclick="window.print()">Imprimir</button>
+</div>
+
+<article class="curriculo">
+    <aside class="cv-lateral">
+        <section class="cv-bloco-lateral">
+            <h2>Contato</h2>
+            <dl>
+                <dt>Telefone</dt>
+                <dd>@Model.Telefone</dd>
+                <dt>E-mail</dt>
+                <dd class="quebra">@Model.Email</dd>
+                <dt>Endereço</dt>
+                <dd>@Model.Endereco</dd>
+                <dt>CPF</dt>
+                <dd>@Model.CpfFormatado</dd>
+            </dl>
+        </section>
+
+        @if (idiomas.Any())
+        {
+            <section class="cv-bloco-lateral">
+                <h2>Idiomas</h2>
+                <ul class="cv-idiomas">
+                    @foreach (var idioma in idiomas)
+                    {
+                        <li>
+                            <span class="cv-idioma-nome">@idioma.Nome</span>
+                            @if (!string.IsNullOrWhiteSpace(idioma.Nivel))
+                            {
+                                <span class="cv-idioma-nivel">@idioma.Nivel</span>
+                            }
+                        </li>
+                    }
+                </ul>
+            </section>
+        }
+
+        <section class="cv-bloco-lateral">
+            <h2>Pretensão salarial</h2>
+            <p class="cv-salario">@salario</p>
+        </section>
+    </aside>
+
+    <div class="cv-principal">
+        <header class="cv-cabecalho">
+            <h1>@Model.Nome</h1>
+            <p class="cv-cargo">@Model.CargoPretendido</p>
+        </header>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Objetivo))
+        {
+            <section class="cv-secao">
+                <h2>Objetivo</h2>
+                <p>@Model.Objetivo</p>
+            </section>
+        }
+
+        @if (experiencias.Any())
+        {
+            <section class="cv-secao">
+                <h2>Experiência profissional</h2>
+                @foreach (var e in experiencias)
+                {
+                    <div class="cv-item">
+                        <div class="cv-item-topo">
+                            <h3>@e.Cargo</h3>
+                            @if (!string.IsNullOrWhiteSpace(e.Periodo))
+                            {
+                                <span class="cv-periodo">@e.Periodo</span>
+                            }
+                        </div>
+                        <p class="cv-local">@e.Empresa</p>
+                        @if (!string.IsNullOrWhiteSpace(e.Descricao))
+                        {
+                            <p class="cv-texto">@e.Descricao</p>
+                        }
+                    </div>
+                }
+            </section>
+        }
+
+        <section class="cv-secao">
+            <h2>Formação acadêmica e cursos</h2>
+            @foreach (var f in formacoes)
+            {
+                <div class="cv-item">
+                    <div class="cv-item-topo">
+                        <h3>@f.Curso</h3>
+                        @if (!string.IsNullOrWhiteSpace(f.Conclusao))
+                        {
+                            <span class="cv-periodo">@f.Conclusao</span>
+                        }
+                    </div>
+                    <p class="cv-local">@f.Instituicao</p>
+                </div>
+            }
+        </section>
+    </div>
+</article>

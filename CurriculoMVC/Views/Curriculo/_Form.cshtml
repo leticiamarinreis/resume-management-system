@@ -1,0 +1,147 @@
+@model Curriculo
+@{
+    var niveis = new[] { "Básico", "Intermediário", "Avançado", "Fluente" }
+        .Select(n => new SelectListItem(n, n)).ToList();
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alerta alerta-erro" role="alert">
+        Alguns campos precisam de ajuste. Confira as mensagens abaixo e salve novamente.
+    </div>
+}
+
+<section class="bloco">
+    <h2>Dados pessoais</h2>
+    <div class="grade">
+        <div class="campo span-2">
+            <label asp-for="Nome"></label>
+            <input asp-for="Nome" autocomplete="name" />
+            <span asp-validation-for="Nome" class="erro"></span>
+        </div>
+        <div class="campo">
+            <label asp-for="Cpf"></label>
+            <input asp-for="Cpf" inputmode="numeric" maxlength="14" placeholder="000.000.000-00" />
+            <span asp-validation-for="Cpf" class="erro"></span>
+        </div>
+        <div class="campo">
+            <label asp-for="Telefone"></label>
+            <input asp-for="Telefone" type="tel" autocomplete="tel" placeholder="(11) 90000-0000" />
+            <span asp-validation-for="Telefone" class="erro"></span>
+        </div>
+        <div class="campo span-2">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" autocomplete="email" />
+            <span asp-validation-for="Email" class="erro"></span>
+        </div>
+        <div class="campo span-2">
+            <label asp-for="Endereco"></label>
+            <input asp-for="Endereco" autocomplete="street-address" placeholder="Rua, número, bairro, cidade/UF" />
+            <span asp-validation-for="Endereco" class="erro"></span>
+        </div>
+        <div class="campo">
+            <label asp-for="CargoPretendido"></label>
+            <input asp-for="CargoPretendido" />
+            <span asp-validation-for="CargoPretendido" class="erro"></span>
+        </div>
+        <div class="campo">
+            <label asp-for="PretensaoSalarial"></label>
+            <input asp-for="PretensaoSalarial" inputmode="decimal" placeholder="0,00" />
+            <span asp-validation-for="PretensaoSalarial" class="erro"></span>
+        </div>
+        <div class="campo span-2">
+            <label asp-for="Objetivo"></label>
+            <textarea asp-for="Objetivo" rows="3" placeholder="Opcional. Uma ou duas frases sobre o que você busca."></textarea>
+            <span asp-validation-for="Objetivo" class="erro"></span>
+        </div>
+    </div>
+</section>
+
+<section class="bloco">
+    <h2>Formação acadêmica e cursos</h2>
+    <p class="dica">Preencha ao menos uma. Você pode cadastrar até @Curriculo.MaxFormacoes registros; os vazios não aparecem no currículo.</p>
+
+    @for (int i = 0; i < Model.Formacoes.Count; i++)
+    {
+        <fieldset class="item">
+            <legend>Formação @(i + 1)@(i == 0 ? " (obrigatória)" : "")</legend>
+            <div class="grade">
+                <div class="campo">
+                    <label asp-for="Formacoes[i].Curso"></label>
+                    <input asp-for="Formacoes[i].Curso" />
+                    <span asp-validation-for="Formacoes[i].Curso" class="erro"></span>
+                </div>
+                <div class="campo">
+                    <label asp-for="Formacoes[i].Instituicao"></label>
+                    <input asp-for="Formacoes[i].Instituicao" />
+                    <span asp-validation-for="Formacoes[i].Instituicao" class="erro"></span>
+                </div>
+                <div class="campo">
+                    <label asp-for="Formacoes[i].Conclusao"></label>
+                    <input asp-for="Formacoes[i].Conclusao" />
+                    <span asp-validation-for="Formacoes[i].Conclusao" class="erro"></span>
+                </div>
+            </div>
+        </fieldset>
+    }
+</section>
+
+<section class="bloco">
+    <h2>Experiência profissional</h2>
+    <p class="dica">Até @Curriculo.MaxExperiencias experiências anteriores, da mais recente para a mais antiga.</p>
+
+    @for (int i = 0; i < Model.Experiencias.Count; i++)
+    {
+        <fieldset class="item">
+            <legend>Experiência @(i + 1)</legend>
+            <div class="grade">
+                <div class="campo">
+                    <label asp-for="Experiencias[i].Empresa"></label>
+                    <input asp-for="Experiencias[i].Empresa" />
+                    <span asp-validation-for="Experiencias[i].Empresa" class="erro"></span>
+                </div>
+                <div class="campo">
+                    <label asp-for="Experiencias[i].Cargo"></label>
+                    <input asp-for="Experiencias[i].Cargo" />
+                    <span asp-validation-for="Experiencias[i].Cargo" class="erro"></span>
+                </div>
+                <div class="campo">
+                    <label asp-for="Experiencias[i].Periodo"></label>
+                    <input asp-for="Experiencias[i].Periodo" />
+                    <span asp-validation-for="Experiencias[i].Periodo" class="erro"></span>
+                </div>
+                <div class="campo span-2">
+                    <label asp-for="Experiencias[i].Descricao"></label>
+                    <textarea asp-for="Experiencias[i].Descricao" rows="3"></textarea>
+                    <span asp-validation-for="Experiencias[i].Descricao" class="erro"></span>
+                </div>
+            </div>
+        </fieldset>
+    }
+</section>
+
+<section class="bloco">
+    <h2>Idiomas</h2>
+    <p class="dica">Até @Curriculo.MaxIdiomas idiomas.</p>
+
+    @for (int i = 0; i < Model.Idiomas.Count; i++)
+    {
+        <fieldset class="item">
+            <legend>Idioma @(i + 1)</legend>
+            <div class="grade">
+                <div class="campo">
+                    <label asp-for="Idiomas[i].Nome"></label>
+                    <input asp-for="Idiomas[i].Nome" />
+                    <span asp-validation-for="Idiomas[i].Nome" class="erro"></span>
+                </div>
+                <div class="campo">
+                    <label asp-for="Idiomas[i].Nivel"></label>
+                    <select asp-for="Idiomas[i].Nivel" asp-items="niveis">
+                        <option value="">Selecione</option>
+                    </select>
+                    <span asp-validation-for="Idiomas[i].Nivel" class="erro"></span>
+                </div>
+            </div>
+        </fieldset>
+    }
+</section>

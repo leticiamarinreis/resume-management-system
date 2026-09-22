@@ -1,0 +1,17 @@
+@model Curriculo
+@{
+    ViewData["Title"] = "Alterar currículo";
+}
+
+<div class="page-head">
+    <h1>Alterar currículo</h1>
+</div>
+
+<form asp-action="Edit" asp-route-id="@Model.Id" method="post" novalidate>
+    <partial name="_Form" model="Model" />
+
+    <div class="acoes">
+        <button type="submit" class="btn btn-primary">Salvar alterações</button>
+        <a class="btn btn-ghost" asp-action="Index">Cancelar</a>
+    </div>
+</form>

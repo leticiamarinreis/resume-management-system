@@ -1,0 +1,26 @@
+@model Curriculo
+@{
+    ViewData["Title"] = "Excluir currículo";
+}
+
+<div class="page-head">
+    <h1>Excluir currículo</h1>
+</div>
+
+<div class="confirmacao">
+    <p>Você está prestes a excluir o currículo abaixo. Esta ação não pode ser desfeita.</p>
+
+    <dl class="resumo">
+        <dt>Nome</dt>
+        <dd>@Model.Nome</dd>
+        <dt>CPF</dt>
+        <dd>@Model.CpfFormatado</dd>
+        <dt>Cargo pretendido</dt>
+        <dd>@Model.CargoPretendido</dd>
+    </dl>
+
+    <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="acoes">
+        <button type="submit" class="btn btn-danger">Excluir currículo</button>
+        <a class="btn btn-ghost" asp-action="Index">Cancelar</a>
+    </form>
+</div>
