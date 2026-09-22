@@ -1,8 +1,8 @@
-# Resume Management System — ASP.NET Core MVC
+# Resume Management System — ASP.NET Core MVC 👩🏻‍💻
 
 A complete academic web application for **creating, managing, editing, deleting, and professionally displaying resumes**.
 
-The project was developed using **ASP.NET Core MVC, C#, Razor, HTML5, CSS3, ADO.NET/DAO, and SQL Server**, following the MVC pattern and a clear separation between presentation, controllers, models, and data-access responsibilities.
+The project was developed using **ASP.NET Core MVC, C#, Razor, HTML5, CSS3, .NET/DAO, and SQL Server**, following the MVC pattern and a clear separation between presentation, controllers, models, and data-access responsibilities.
 
 > **Project language:** The application interface and field labels are primarily in Portuguese because the project was developed as an academic assignment in Brazil. The repository documentation is written in English to make the project easier to understand as a portfolio item.
 
