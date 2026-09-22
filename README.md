@@ -1059,17 +1059,11 @@ GitHub:
 https://github.com/leticiamarinreis
 ```
 
-> Replace the URL above if your GitHub username is different.
-
 ---
 
 ## License
 
 This project was created for **academic and educational purposes**.
-
-No specific open-source license has been assigned yet.
-
-If this repository is later intended for public reuse, consider adding an explicit license such as the MIT License and updating this section accordingly.
 
 ---
 
